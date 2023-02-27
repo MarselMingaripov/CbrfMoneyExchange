@@ -66,21 +66,13 @@ public class JsonService {
         if (modelRepository.findByLocalDate(LocalDate.now()).isPresent()) {
             return modelRepository.findByLocalDate(LocalDate.now()).get();
         } else {
-            if (modelRepository.findByLocalDate(LocalDate.now().minusDays(1)).isPresent()) {
-                return modelRepository.findByLocalDate(LocalDate.now().minusDays(1)).get();
-            } else {
-                if (modelRepository.findByLocalDate(LocalDate.now().minusDays(2)).isPresent()) {
-                    return modelRepository.findByLocalDate(LocalDate.now().minusDays(2)).get();
-                } else {
-                    initJsonToStringArray();
-                    transformModels();
-                    initDataList();
-                    Model model = new Model(UUID.randomUUID(), dataList);
-                    modelRepository.save(model);
-                    clearData();
-                    return modelRepository.getById(model.getUuid());
-                }
-            }
+            initJsonToStringArray();
+            transformModels();
+            initDataList();
+            Model model = new Model(UUID.randomUUID(), dataList);
+            modelRepository.save(model);
+            clearData();
+            return modelRepository.getById(model.getUuid());
         }
     }
 }
