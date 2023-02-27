@@ -25,7 +25,8 @@ public class ConvertorController {
 
     @GetMapping("/{to}/{amount}")
     @Operation(summary = "конвертировать рубль в указанную валюту",
-            description = "EUR - евро \n USD - доллар")
+            description = "EUR - евро USD - доллар CHF - швейцарский франк GBP - фунт стерлингов TRY - турецкая лира CNY - китайский юань CAD - канадский доллар" +
+                    "HKD - гонконгский доллар JPY - японская йена")
     public ResponseEntity<Double> convert(@PathVariable String to, @PathVariable double amount){
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("to", to);
