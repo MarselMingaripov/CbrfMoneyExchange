@@ -1,0 +1,35 @@
+version: "3.5"
+services:
+  app:
+    container_name: "converter"
+    image: converter
+    build: ./
+    networks:
+      - alpine-net
+    ports:
+      - "8100:8100"
+    depends_on:
+      - cbrfdata
+  cbrfdata:
+    container_name: "data"
+    image: cbrfdata
+    build: ./
+    networks:
+      - alpine-net
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgresql
+  postgresql:
+    image: postgres:alpine3.17
+    networks:
+      - alpine-net
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_DB=db_moex
+networks:
+  alpine-net:
+    driver: bridge
